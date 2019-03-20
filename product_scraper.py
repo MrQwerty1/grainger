@@ -130,11 +130,12 @@ def main(url):
             'item_sku': item_sku,
         }
         post(out)
-        print(out)
+        print(item_sku)
         time.sleep(choice(range(min_delay, max_delay)))
     except Exception as ex:
         with open('error.txt', 'a') as q:
             q.write('{}: {}\n'.format(url, ex))
+        print(ex)
 
 
 for sku in open('/var/grainger/link/{}.txt'.format(socket.gethostname())).read().split('\n'):
