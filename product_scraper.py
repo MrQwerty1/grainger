@@ -137,5 +137,5 @@ def main(url):
             q.write('{}: {}\n'.format(url, ex))
 
 
-for sku in open('/var/www/grainger/link/{}.txt'.format(socket.gethostname())).read().split('\n'):
+for sku in open('/var/grainger/link/{}.txt'.format(socket.gethostname())).read().split('\n'):
     main(sku)
