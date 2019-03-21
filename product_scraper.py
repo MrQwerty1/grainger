@@ -133,7 +133,7 @@ def main(url):
         print(item_sku)
         time.sleep(choice(range(min_delay, max_delay)))
     except Exception as ex:
-        with open('error.txt', 'a') as q:
+        with open('/var/grainger/error.txt', 'a') as q:
             q.write('{}: {}\n'.format(url, ex))
         print(ex)
 
