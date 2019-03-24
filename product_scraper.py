@@ -14,13 +14,13 @@ min_delay = 1
 max_delay = 5
 
 
-print('Saving zip or branch..')
+print('Saving zip or branch..', flush=True)
 try:
     d = {'fulfilmentType': 'Pickup', 'zipOrBranchId': zip_or_branch}
     save = s.post('https://www.grainger.com/rta/savezipOrbranch/', data=d)
-    print('Success..')
+    print('Success..', flush=True)
 except:
-    print('Saving has failed..')
+    print('Saving has failed..', flush=True)
 
 
 def post(data):
