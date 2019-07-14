@@ -110,9 +110,17 @@ def main(url):
         except:
             item_sku = None
         try:
-            compilance = '\n'.join('\n'.join(tree.xpath("//ul[@class='complianceInfo']//p/text()")).split())
-        except:
+            compilance = '\n'.join(tree.xpath("//ul[@class='complianceInfo']//*/@title"))
+            comp = '\n'.join(tree.xpath("//ul[@class='complianceInfo']//text()"))
+            compilance += comp
+            compilance = ' '.join(compilance.split())
+        except Exception as ex:
+            print(ex)
             compilance = ''
+        try:
+            breadcrumbs = '>'.join(tree.xpath("//a[@class='bread-link']/text()")[:3])
+        except:
+            breadcrumbs = ''
         out = {
             'brand_name': brand,
             'item_name': name,
@@ -128,8 +136,10 @@ def main(url):
             'product_description': full_desc,
             'product_compliance': compilance,
             'item_sku': item_sku,
+            'category': breadcrumbs,
         }
         post(out)
+        print(out)
         print(item_sku, flush=True)
         time.sleep(choice(range(min_delay, max_delay)))
     except Exception as ex:
@@ -139,5 +149,6 @@ def main(url):
         print(url, ':', ex, flush=True)
 
 
-for sku in open('/var/grainger/link/{}.txt'.format(socket.gethostname())).read().split('\n'):
-    main(sku)
+#for sku in open('/var/grainger/link/{}.txt'.format(socket.gethostname())).read().split('\n'):
+#    main(sku)
+main('39ZP35')
