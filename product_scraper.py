@@ -40,12 +40,6 @@ def main(url):
             part_number = tree.xpath("//span[@itemprop='model']/text()")[0].strip()
         except:
             part_number = None
-        '''
-        try:
-            main_image_url = 'https:' + tree.xpath("//img[@id='mainImageZoom']/@data-blzsrc")[0]
-        except:
-            main_image_url = None
-        '''
         try:
             main_image_url = 'https:' + tree.xpath("//img[@id='mainImageZoom']/@src")[0].split('?')[0]
         except:
@@ -109,17 +103,13 @@ def main(url):
             item_sku = tree.xpath("//span[@itemprop='productID']/text()")[0].strip()
         except:
             item_sku = None
-        try:
-            compilance = '\n'.join(tree.xpath("//ul[@class='complianceInfo']//*/@title"))
-            comp = '\n'.join(tree.xpath("//ul[@class='complianceInfo']//text()"))
-            compilance += comp
-            compilance = ' '.join(compilance.split())
-        except:
-            compilance = ''
+        compilance = '\n'.join(tree.xpath("//div[@class='productIconsContainer']//span/@title"))
         try:
             breadcrumbs = '>'.join(tree.xpath("//a[@class='bread-link']/text()")[:3])
         except:
             breadcrumbs = ''
+        product_shipping_qty = ''.join(tree.xpath("//p[@class='gcprice gcprice-shipPack gcprice-idp']/text()")).replace('Shipping:', '').strip()
+        product_pickup_qty = ''.join(tree.xpath("//p[@class='gcprice gcprice-sellPack gcprice-idp']/text()")).replace('Pickup:', '').strip()
         out = {
             'brand_name': brand,
             'item_name': name,
@@ -134,6 +124,8 @@ def main(url):
             'country_of_origin': country,
             'product_description': full_desc,
             'product_compliance': compilance,
+            'product_shipping_qty': product_shipping_qty,
+            'product_pickup_qty': product_pickup_qty,
             'item_sku': item_sku,
             'product_category': breadcrumbs,
         }
