@@ -103,7 +103,7 @@ def main(url):
             item_sku = tree.xpath("//span[@itemprop='productID']/text()")[0].strip()
         except:
             item_sku = None
-        compilance = '\n'.join(tree.xpath("//div[@class='productIconsContainer']//span/@title"))
+        compliance = '\n'.join(tree.xpath("//div[@class='productIconsContainer']//span/@title"))
         try:
             breadcrumbs = '>'.join(tree.xpath("//a[@class='bread-link']/text()")[:3])
         except:
@@ -123,7 +123,7 @@ def main(url):
             'shipping_weight_desc': shipping_weight_desc,
             'country_of_origin': country,
             'product_description': full_desc,
-            'product_compliance': compilance,
+            'product_compliance': compliance,
             'product_shipping_qty': product_shipping_qty,
             'product_pickup_qty': product_pickup_qty,
             'item_sku': item_sku,
